@@ -1,0 +1,94 @@
+{% extends "admin_template/admin_index.html" %}
+{% load static %}
+{% block content %}
+{% include 'admin_template/header.html' %}
+{% include 'admin_template/sidebar.html' %}
+
+
+<div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="card border shadow">
+          <div class="card-header d-flex justify-content-between">
+          <div class="pagetitle d-flex justify-content-between">
+            <nav>
+              <ol class="breadcrumb">
+                {% if  user.is_superuser %}
+                <li class="breadcrumb-item"><a href="{% url 'hotels:all' %}">All Hotel</a></li>
+                {% endif %}
+                <li class="breadcrumb-item"><a href = "{% url 'hotels:details' Hotel.id %}">{{ Hotel.name }}</a></li>
+                <li class="breadcrumb-item active">booking</li>.
+              </ol>
+            </nav>  
+          </div>  
+          
+          <div> 
+            <ul class="nav nav-pills">
+              <li class="nav-item">
+                <a class="nav-link " href="{% url 'hotels:details' Hotel.pk %}">Hotel Details</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'rooms:admin_rooms' hotels.id %}">rooms</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active">booking</a>
+              </li>
+          
+            </ul>
+          </div>
+
+          <div class="card-body border shadow">
+            <table class="table">
+              <thead class="thead-dark">
+                <tr>
+                  <th scope="col">Booking No.</th>
+                  <th scope="col">RoomNumber</th>
+                  
+                  {% if  user.is_superuser %}
+                  <th scope="col">hotel</th>
+                  {% endif %}
+                  <th scope="col">RoomType</th>
+
+                   {% if  user.is_superuser  or user.user_type == 2  %} 
+                  <th>Action</th>
+                  {% endif %}
+                </tr>
+              </thead>
+              <tbody>
+                
+                {% for row in bookings %}
+                
+                {% if  user.is_superuser  or user.user_type == 2  %}
+                
+                
+                <tr>
+                    <td><a href="{% url 'booking:detailofbooking' booking.pk %}">{{row.id}}</a></td>
+                    <td>{{row.room.number|capfirst}}</td>
+                    
+                    {% if  user.is_superuser %} 
+                    <td>{{row.room.hotel.name|capfirst}}</td>
+                    {% endif %}
+                    <td>{{row.room.type|capfirst}}</td>
+                    {% endif %} 
+                    {% if  user.is_superuser  or user.user_type == 2  %} 
+                    <td>
+                      <a href="#" class="delete" data-toggle="modal"><i
+                        class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                    </td>
+                    {% endif %} 
+                </tr>
+                {% empty %}
+                <tr>
+                  <td colspan="5">No room found.</td>
+                </tr>
+                
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

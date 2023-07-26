@@ -1,0 +1,64 @@
+{% extends "admin_template/admin_index.html" %}
+{% load static %}
+{% block content %}
+{% include 'admin_template/header.html' %}
+{% include 'admin_template/sidebar.html' %}
+{% load crispy_forms_tags %}
+
+<div class="pagetitle">
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item "><a href="{% url 'rooms:room_type_list' %}">RoomType</a></li>
+        <li class="breadcrumb-item active">room_type_create</li>
+      </ol>
+    </nav>
+  </div>
+
+
+<section class="section ">
+    <div class="row">
+        <div class="col-12 ">
+            <div class="card border shadow">
+                <div class="card-body">
+                    <form method="post" class="row g-3 p-3 " enctype="multipart/form-data">
+
+                        {% csrf_token %}
+
+                        {{ form.non_field_errors }}
+
+                        <div class="col-md-4">
+                            {{ form.name.errors }}
+                            <div class="col-md-12">
+                                {{ form.name | as_crispy_field}}
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            {{ form.capacity.errors }}
+                            <div class="col-md-12">
+                                {{ form.capacity | as_crispy_field}}
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            {{ form.room_type.errors }}
+                            <div class="col-md-12">
+                                {{ form.room_type | as_crispy_field}}
+                            </div>
+                        </div>
+
+
+
+                        <div class="text-end">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                            
+                            <button type="reset" class="btn btn-secondary">Reset</button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+</section>
+
+{% endblock %}

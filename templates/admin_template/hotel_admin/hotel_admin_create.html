@@ -1,0 +1,57 @@
+{% extends "admin_template/admin_index.html" %}
+{% load static %}
+{% block content %}
+{% include 'admin_template/header.html' %}
+{% include 'admin_template/sidebar.html' %}
+{% load crispy_forms_tags %}
+
+<div class="pagetitle">
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item "><a href="{% url 'hotel_admins:hoteladmin_list' %}">All Hotel Admins</a></li>
+        <li class="breadcrumb-item active">Add New hotel Admin</li>
+      </ol>
+    </nav>
+  </div>
+
+
+<section class="section ">
+    <div class="row">
+        <div class="col-12 ">
+            <div class="card border shadow">
+                <div class="card-body">
+                    <form method="post" class="row g-3 p-3 " enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ form.non_field_errors }}
+
+
+                        <div class="col-md-4">
+                            {{ form.username.errors }}
+                            <div class="col-md-12">
+                                {{ form.username | as_crispy_field}}
+                            </div>
+                        </div>
+
+                        
+                        <div class="col-md-6">
+                            {{ form.email.errors }}
+                            <div class="col-md-12">
+                                {{ form.email | as_crispy_field}}
+                            </div>
+                        </div> 
+
+
+
+                        <div class="text-end">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                            
+                            <button type="reset" class="btn btn-secondary">Reset</button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+</section>
+
+{% endblock %}

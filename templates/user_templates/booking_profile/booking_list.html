@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{%  load static %}
+{% block  content %}
+
+
+<div class="container-fluid page-header mb-5 p-0" style="background-image: url({% static 'user_static/img/carousel-1.jpg' %});">
+    <div class="container-fluid page-header-inner py-5">
+        <div class="container text-center pb-5">
+            <h1 class="display-3 text-white mb-3 animated slideInDown">BOOKING_LIST</h1> 
+            <nav aria-label="breadcrumb">
+            </nav>
+        </div>
+    </div>
+</div>
+
+<center> <h2 class="text-success"> (^.^) Here is your bookings  (^.^)  </h2> </center>
+<br>
+<br>
+
+
+<div class="card-body border shadow">
+    <table class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">booking no.</th>
+          <th scope="col">RoomNumber</th>
+          <th scope="col">hotel</th>
+          <th scope="col">RoomType</th>
+          <th>cancel</th>
+        </tr>
+      </thead>
+
+     <tbody>
+
+       {% for row  in bookings %}
+        <tr>
+
+            <td><a href="#">{{row.id}}</a></td>
+            <td>{{row.room.number|capfirst}}</td>
+            <td>{{row.room.hotel.name|capfirst}}</td>
+            <td>{{row.room.type|capfirst}}</td>
+            <td>
+              <a class="btn btn-danger delete" data-toggle="modal" href="{% url 'booking:BookingCancel' row.id %}"><i class="bi bi-x-circle-fill"></i>Cancel Booking</a>
+            </td>
+            {% comment %} <button type="button" class="btn btn-danger delete" data-toggle="modal">
+              <i class="fa fa-trash"></i> Cancel Booking </button> {% endcomment %}
+            {% comment %} <td>
+              <a href="url'' row.id" class="delete" data-toggle="modal"><i                       
+                class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+            </td> {% endcomment %}
+          </tr>
+          {% endfor %}
+      </tbody>       
+    </table>
+</div>
+{% endblock %}

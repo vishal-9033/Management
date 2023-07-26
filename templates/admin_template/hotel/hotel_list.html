@@ -1,0 +1,87 @@
+{% extends "admin_template/admin_index.html" %}
+{% load static %}
+{% block content %}
+{% include 'admin_template/header.html' %}
+{% include 'admin_template/sidebar.html' %}
+
+
+<div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="card border shadow">
+          <div class="card-header d-flex justify-content-between">
+            <h4>All Hotel</h4>
+            <a href="{% url 'hotels:add' %}">
+              <button type="submit" class="btn btn-primary">Add New Hotel</button>
+            </a>
+          </a>
+          </div>
+          </div>
+          <div class="card-body border shadow">
+            <table class="table" id="Hoteltable">
+              <thead class="thead-dark">
+                <tr>
+                   <th scope="col">id</th>
+                  <th scope="col">HotelName</th>
+                  <th scope="col">locaton</th>
+                  
+                   {% if  user.is_superuser %} 
+                  <th>Action</th>
+                  {% endif %}
+                </tr>
+              </thead>
+              <tbody>
+              </tbody>
+              {% comment %} <tbody>
+                {% for row in hotels %}
+                
+                <tr>
+                  <th scope="row">{{ row.id }}</th>
+                  <td><a href="{% url 'hotels:details' row.pk %}">{{row.name|capfirst}}</a></td>
+                  <td><a href="{% url 'hotel_admins:hoteladmin_detail' row.Hotel_admin.pk %}">{{row.Hotel_admin|capfirst}}</a></td>
+                   {% if  user.is_superuser %} 
+                  <td>
+                    <a href="{% url 'hotels:update' row.pk %}" class="edit" data-toggle="modal"><i
+                            class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                    <a href="{% url 'hotels:delete' row.pk %}" class="delete" data-toggle="modal"><i
+                            class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                </td>
+                   {% endif %} 
+                </tr>
+                
+                {% endfor %}
+              </tbody> {% endcomment %}
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+  $(document).ready(function () 
+  {
+    $('#Hoteltable').DataTable({
+      columnDefs: [{
+        orderable: true,
+        targets: -1
+    },],
+
+    processing: true,
+    serverSide: true,
+    searching: true,
+      ajax: {
+          url: '{% url "hotels:jesondata_hotel" %}',
+          type: 'get',
+        },
+      columns: [
+          { data: 'id', name:'id'},
+          { data: 'name', name: 'name' },
+          { data: 'location', name: 'location' },
+          { data: 'actions', name: 'actions' },
+          ]
+  });
+  });
+
+</script>
+{%endblock%} 

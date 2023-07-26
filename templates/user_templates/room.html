@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{%  load static %}
+{% block  content %}
+
+        <!-- Page Header Start -->
+        <div class="container-fluid page-header mb-5 p-0" style="background-image: url({% static 'user_static/img/carousel-1.jpg' %});">
+            <div class="container-fluid page-header-inner py-5">
+                <div class="container text-center pb-5">
+                    <h1 class="display-3 text-white mb-3 animated slideInDown">Rooms</h1>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb justify-content-center text-uppercase">
+                            <li class="breadcrumb-item"><a href="{% url 'user:index' %}">Home</a></li>
+                            <li class="breadcrumb-item"><a href="{% url 'hotels:all_hotels' %}">Hotel</a></li>
+                            <li class="breadcrumb-item text-white active" aria-current="page">Rooms</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+        <!-- Page Header End -->
+        <!-- Booking End -->
+
+
+        <!-- Room Start -->
+        <div class="container-xxl py-5">
+            <div class="container">
+                <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+                    <h6 class="section-title text-center text-primary text-uppercase">Our Rooms</h6>
+                    <h1 class="mb-5">Explore Our <span class="text-primary text-uppercase">Rooms</span></h1>
+                </div>
+                <div class="row g-4">
+                    {% for room in rooms %}
+                    <div class="card border shadow col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                        <div class="room-item shadow rounded overflow-hidden">
+                            <div class="card-title shadow border  position-relative">
+                                <img class="img-fluid" src="{% get_media_prefix %}{{room.room_image}}" style='max-height:250px; min-height:250px; max-width:410px; min-width:410px;'>
+                            </div>
+                            <div class="card-body p-4 mt-2">
+                                <div class="d-flex justify-content-between mb-3">
+                                    <h3 class="mb-0">{{room.hotel}}</h3>
+                                    <h5 class="mb-0">{{room.type}}</h5>
+                                </div>
+                                <div class="d-flex mb-3">
+                                    <small class="border-end me-3 pe-3"><i class="fa fa-bed text-primary me-2"></i>Bed</small>
+                                    <small class="border-end me-3 pe-3"><i class="fa fa-bath text-primary me-2"></i>Bath</small>
+                                    <small class="border-end me-3 pe-3"><i class="fa fa-wifi text-primary me-2"></i>Wifi</small>
+                                    <small class="border-end me-3 pe-3"><i class="fa fa-rupee" style="font-size:24px; margin-right:1px;"></i>&#8377;&nbsp;{{room.price}}</small>
+                                </div>
+                                
+                                <p class="text-body mb-3">{{room.description}}</p>
+
+                                <div class="d-flex justify-content-between">
+                                    <a class="btn btn-sm btn-primary rounded py-2 px-4" href="{% url 'booking:CreateBooking' room.pk %}">Book Now</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Room End -->
+{% endblock %}

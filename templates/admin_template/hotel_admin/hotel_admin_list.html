@@ -1,0 +1,82 @@
+{% extends "admin_template/admin_index.html" %}
+{% load static %}
+{% block content %}
+{% include 'admin_template/header.html' %}
+{% include 'admin_template/sidebar.html' %}
+
+<div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="card border shadow">
+          <div class="card-header d-flex justify-content-between">
+            <h4> Hotel Admins </h4> 
+            <a href="{% url 'hotel_admins:hoteladmin_create' %}">
+              <button type="submit" class="btn btn-primary">Add New Hotel Admins</button>
+            </a>
+          </a>
+          </div>
+          </div>
+          <div class="card-body border shadow">
+            <table class="table" id="Hoteladmintable">
+              <thead class="thead-dark">
+                <tr>
+                  <th scope="col">No.</th>
+                  <th scope="col">Hotel Admin</th>
+                  <th scope="col">Email</th> 
+                  
+                  <th>Action</th>
+            
+                </tr>
+              </thead>
+               {% comment %} <tbody>
+                {% for row in hotel_admins %}
+                
+                <tr>
+                  <th scope="row">{{ row.id }}</th>
+                  <td><a href="{% url 'hotel_admins:hoteladmin_detail' row.pk %}">{{row.username|capfirst}}</a></td>
+                   {% if  user.is_superuser %} 
+                  <td>
+                    <a href="{% url 'hotel_admins:hoteladmin_update' row.pk %}" class="edit" data-toggle="modal"><i
+                            class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                    <a href="{% url 'hotel_admins:hoteladmin_delete' row.pk %}" class="delete" data-toggle="modal"><i
+                            class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                </td>
+                   {% endif %} 
+                </tr>
+                
+                {% endfor %}
+              </tbody> {% endcomment %}
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+ <script>
+    $(document).ready(function () 
+    {
+      $('#Hoteladmintable').DataTable({
+        columnDefs: [{
+          orderable: true,
+          targets: -1
+      }, ],
+  
+      processing: true,
+      serverSide: true,
+      searching: true,
+        ajax: {
+            url: '{% url "hotel_admins:jesondata_HotelAdmin" %}',
+            type: 'get',
+        },
+        columns: [
+            // data: json key from prepare_results, name: model field name
+            { data: 'id', name: 'id' },
+            { data: 'username', name: 'username' },
+            { data: 'email', name: 'email' },
+            { data: 'actions', name: 'actions' },
+        ]
+    });
+    });
+  </script>
+{% endblock %}

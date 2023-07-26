@@ -1,0 +1,30 @@
+{% extends "admin_template/admin_index.html" %}
+{% load static %}
+{% block content %}
+{% include 'admin_template/header.html' %}
+{% include 'admin_template/sidebar.html' %}
+
+
+<div class="pagetitle">
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item "><a href="{% url 'hotel_admins:hoteladmin_list' %}">All Hotel Admins</a></li>
+        <li class="breadcrumb-item active">{{ hotel_admins.username }}</li>
+      </ol>
+    </nav>
+  </div>
+  
+
+    <hr>
+        <div id="tabs-1">
+            <div class="mb-3">
+                <h2 style="color: darkblue;">{{ hotel_admins.username }}</h2>
+                <br/>
+                <p><b>HOTEL ADMIN :</b>{{hotel_admins.username}}</p>
+                <br/>
+                <p><b>Email:</b>{{hotel_admins.email}}</p>
+                <p><b>PASSWORD:</b>{{hotel_admins.password}}</p>
+            </div>
+        </div>
+
+{% endblock %}

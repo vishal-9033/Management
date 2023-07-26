@@ -1,0 +1,96 @@
+<!-- ======= Sidebar ======= -->
+
+
+<aside id="sidebar" class="sidebar">
+
+
+    <ul class="sidebar-nav" id="sidebar-nav">
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="{% url 'admin' %}">
+        <i class="bi bi-menu-button-wide"></i>
+        <span>Home</span>
+        </a>
+      </li>
+
+      {% if  user.is_superuser %}
+      
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="{% url 'hotel_admins:hoteladmin_list' %}">
+        <i class="bi bi-menu-button-wide"></i>
+        <span>Hotel_Admin</span>
+        </a>
+      </li>
+
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="{% url 'hotels:all' %}">
+          <i class="bi bi-menu-button-wide"></i>
+          <span>Hotels</span>
+        </a>
+      </li>
+
+
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="{% url 'admin_user:user_list'  %}">
+        <i class="bi bi-menu-button-wide"></i>
+        <span>Customer</span>
+        </a>
+      </li>
+      
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="{% url 'rooms:room_type_list' %}">
+          <i class="bi bi-menu-button-wide"></i>
+          <span>Rooms types</span>
+        </a>
+      </li>
+      
+      {% endif %}
+
+
+      {% if  request.user.user_type == 2 %}
+      
+
+     
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="{% url 'rooms:admin_rooms' Hotel.id %}">
+          <i class="bi bi-menu-button-wide"></i>
+          <span>Rooms</span>
+        </a>
+      </li>
+      
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="{% url 'booking:listofbooking' user.id %}">
+          <i class="bi bi-menu-button-wide"></i>
+          <span>Bookings</span>
+        </a>
+      </li>
+      
+      {% else %}
+      {% endif %}
+
+
+      {% if user.is_authenticated %}
+
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="{% url 'account_logout' %}">
+          <i class="bi bi-box-arrow-in-left"></i>
+          <span>Log Out</span>
+        </a>
+      </li>
+      
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="{% url 'account_set_password' %}">
+          <i class="bi bi-box-arrow-in-left"></i>
+          <span>change password</span>
+        </a>
+      </li>
+
+
+      {% endif %}
+    </ul>
+
+  </aside>

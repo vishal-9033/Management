@@ -1,0 +1,63 @@
+{% extends "admin_template/admin_index.html" %}
+{% load static %}
+{% block content %}
+{% include 'admin_template/header.html' %}
+{% include 'admin_template/sidebar.html' %}
+
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <div class="card border shadow">
+        <div class="card-header d-flex justify-content-between">
+          <div class="pagetitle d-flex justify-content-between">
+                <nav>
+                  <ol class="breadcrumb">
+                    {% if  user.is_superuser %}
+                    <li class="breadcrumb-item "><a href="{% url 'hotels:all' %}">All Hotel</a></li>
+                    {% endif %}
+                    <li class="breadcrumb-item active">{{ hotels.name }}</li>
+                  </ol>
+                </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div> 
+  <ul class="nav nav-pills">
+
+    <li class="nav-item">
+      <a class="nav-link active">Hotel Details</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="{% url 'rooms:admin_rooms' hotels.id %}">rooms</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="{% url 'booking:listofbooking' user.id %}">booking</a>
+    </li>
+
+  </ul>
+</div>
+ 
+<div>  
+  <hr>
+    <div id="tabs-1">
+      <div class="mb-3">
+        <h2 style="color: darkblue;">{{ hotels.name }}</h2>
+        <br/>
+        <h3 style="color: darkblue;">{{ hotels.Hotel_admin }}</h3>
+        <br/>
+        <p><b>City:</b>{{hotels.location}}</p>
+        <br/>
+        <imp src="/media/{{hotels.hotel_image}}" class="rounded-circle">
+            <br/>
+        </div>
+          <p><b>About Us</b> :{{ hotels.description }}</p>
+          <p><b>Amenities :</b> {{ hotels.amenities }}</p>
+        </div>
+      </div>
+    </div>
+</div>
+{% endblock %}

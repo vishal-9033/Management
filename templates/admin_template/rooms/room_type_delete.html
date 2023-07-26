@@ -1,0 +1,34 @@
+{% extends "admin_template/admin_index.html" %}
+{% load static %}
+{% block content %}
+{% include 'admin_template/header.html' %}
+{% include 'admin_template/sidebar.html' %}
+
+<div class="pagetitle">
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item "><a href="{% url 'rooms:room_type_list' %}">RoomType</a></li>
+        <li class="breadcrumb-item active">{{ room_types.name }}</li>
+      </ol>
+    </nav>
+  </div>
+    
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">Are You Sure want to delete this type?</div>
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        {{form.as_p}}
+                        <button type="submit" class="btn btn-danger">DELETE</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

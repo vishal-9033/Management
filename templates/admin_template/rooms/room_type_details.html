@@ -1,0 +1,36 @@
+{% extends "admin_template/admin_index.html" %}
+{% load static %}
+{% block content %}
+{% include 'admin_template/header.html' %}
+{% include 'admin_template/sidebar.html' %}
+
+
+<div class="pagetitle">
+    <nav>
+      <ol class="breadcrumb">
+        {% if  user.is_superuser %}
+        <li class="breadcrumb-item "><a href="{% url 'rooms:room_type_list' %}">RoomType</a></li>
+        <li class="breadcrumb-item active">{{ room_types.name }}</li>
+        
+        {% else %}
+        <li class="breadcrumb-item"><a href = "{% url 'hotels:details' Hotel.id %}">{{ Hotel.name }}</a></li>
+        <li class="breadcrumb-item active">{{ room_types.name }}</li>
+        {% endif %}
+      </ol>
+    </nav>
+  </div>
+  
+
+    <hr>
+        <div id="tabs-1">
+            <div class="mb-3">
+                <h2 style="color: darkblue;">{{ room_types.name }}</h2>
+                <br/>
+                <b>{{room_types.room_type}}</b>
+                <br/>
+            </div>
+            <p><b>capacity :</b> {{ room_types.capacity }}</p>
+            
+        </div>
+
+{% endblock %}

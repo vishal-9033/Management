@@ -1,0 +1,66 @@
+{% extends "admin_template/admin_index.html" %}
+{% load static %}
+{% block content %}
+{% include 'admin_template/header.html' %}
+{% include 'admin_template/sidebar.html' %}
+
+
+<div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="card border shadow">
+          <div class="card-header d-flex justify-content-between">
+            <h4>RoomType</h4>
+            {% if  user.is_superuser %}
+            <a href="{%
+              DATABASES = {
+                  'default': {
+                      'ENGINE': 'django.db.backends.postgresql',
+                     'NAME':"hotel_sys",
+                     'USER': "postgres",
+                     'PASSWORD': "swan",
+                     'HOST': "localhost",
+                     'PORT': "5432", url 'rooms:room_type_create' %}">
+              <button type="submit" class="btn btn-primary">create room_type</button>
+            </a>
+            {% endif %}
+          </div>
+          </div>
+          <div class="card-body border shadow">
+            <table class="table">
+              <thead class="thead-dark">
+                <tr>
+                  <th scope="col">No.</th>
+                  <th scope="col">TypeOfRooms</th>
+                  
+                   {% if  user.is_superuser %} 
+                  <th>Action</th>
+                  {% endif %}
+                </tr>
+              </thead>
+              <tbody>
+                {% for row in room_types %}
+                
+                <tr>
+                  <th scope="row">{{ row.id }}</th>
+                  <td><a href="{% url 'rooms:room_type_detail' row.pk %}">{{row.name|capfirst}}</a></td>
+                   {% if  user.is_superuser %} 
+                  <td>
+                    <a href="{% url 'rooms:room_type_update' row.pk %}" class="edit" data-toggle="modal"><i
+                            class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                    <a href="{% url 'rooms:room_type_delete' row.pk %}" class="delete" data-toggle="modal"><i
+                            class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                  </td>
+                   {% endif %} 
+                </tr>
+                {% endfor %}
+                
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

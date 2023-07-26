@@ -1,0 +1,24 @@
+{% extends "admin_template/admin_index.html" %}
+{% load static %}
+{% block content %}
+{% include 'admin_template/header.html' %}
+{% include 'admin_template/sidebar.html' %}
+
+
+<hr>
+  <div id="tabs-1">
+      <div class="mb-3">
+          <h1 style="color: darkblue;">{{ rooms.number }}</h1>
+          <h1 style="color: darkblue;">{{ rooms.type }}</h2>
+      <br/>
+      <p><b>Price:</b> {{ rooms.price}}</p>
+      <p><b>check_in_date:</b> {{ rooms.check_in_date}}</p>
+      <p><b>check_out_date:</b> {{ bookings.check_in_date}}</p>
+      <p><b>Guest Name :</b> {{ booking.guest.guestname }}</p>
+      <p><b>Guest email:</b> {{ booking.guest.email }}</p>
+      <p><b>Guest gender:</b> {{ booking.guest.gender }}</p>
+      <p><b>Guest phoneNo.:</b> {{ booking.guest.number }}</p>
+      {% comment %} photo id proof  {% endcomment %}
+      </div>
+  </div>
+{% endblock %}

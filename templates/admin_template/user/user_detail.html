@@ -1,0 +1,30 @@
+{% extends "admin_template/admin_index.html" %}
+{% load static %}
+{% block content %}
+{% include 'admin_template/header.html' %}
+{% include 'admin_template/sidebar.html' %}
+
+<div class="pagetitle">
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item "><a href="{% url 'admin_user:user_list' %}">Customer</a></li>
+        <li class="breadcrumb-item active">{{ users.username }}</li>
+      </ol>
+    </nav>
+  </div>
+    <hr>
+        <div id="tabs-1">
+            <div class="mb-3">
+                <h2 style="color: darkblue;">{{ users.username }}</h2>
+              <br/>
+              <p><b>FIRST NAME:</b> {{ users.first_name }}</p>
+              <p><b>LAST NAME:</b> {{ users.last_name }}</p>
+              <p><b>PHONE NUMBER :</b> {{ users.phone_number }}</p>
+              <p><b>CITY :</b> {{ users.city }}</p>
+              <p><b>EMAIL :</b> {{ users.email }}</p>
+              <p><b>DATE OF BIRTH :</b> {{ users.date_of_birth }}</p>
+              <p><b>GENDER :</b> {{ users.gender }}</p>
+            </div>
+        </div>
+
+{% endblock %}

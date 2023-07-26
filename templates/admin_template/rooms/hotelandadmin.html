@@ -1,0 +1,61 @@
+{% extends "admin_template/admin_index.html" %}
+{% load static %}
+{% block content %}
+{% include 'admin_template/header.html' %}
+{% include 'admin_template/sidebar.html' %}
+
+
+<div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="card border shadow">
+          <div class="card-header d-flex justify-content-between">
+            <h4>All Rooms</h4>
+            
+            <a href="{% url 'rooms:add_rooms' %}">
+              <button type="submit" class="btn btn-primary">Add New Rooms</button>
+            </a> 
+          </div>
+          </div>
+          <div class="card-body border shadow">
+            <table class="table">
+              <thead class="thead-dark">
+                <tr>
+                  <th scope="col">No.</th>
+                  <th scope="col">RoomNumber</th>
+                  <th scope="col">hotel</th>
+                  <th scope="col">RoomType</th>
+
+                   {% if  user.is_superuser  or user.user_type == 2  %} 
+                  <th>Action</th>
+                  {% endif %}
+                </tr>
+              </thead>
+              <tbody>
+                {% for row in rooms %}
+                
+                <tr>
+                  <th scope="row">{{ row.id }}</th>
+                  <td><a href="{% url 'rooms:details_rooms' row.pk %}">{{row.number|capfirst}}</a></td>
+                  <td><a href="{% url 'hotels:details' row.hotel.pk %}">{{row.hotel|capfirst}}</a></td>
+                  <td><a href="{% url 'rooms:room_type_detail' row.type.pk %}">{{row.type|capfirst}}</a></td>
+                   {% if  user.is_superuser  or user.user_type == 2  %} 
+                  <td>
+                    <a href="{% url 'rooms:update_rooms' row.pk %}" class="edit" data-toggle="modal"><i
+                            class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                    <a href="{% url 'rooms:delete_rooms' row.pk %}" class="delete" data-toggle="modal"><i
+                            class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                </td>
+                   {% endif %} 
+                </tr>
+                
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

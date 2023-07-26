@@ -1,0 +1,136 @@
+{% extends "admin_template/admin_index.html" %}
+{% load static %}
+{% block content %}
+{% include 'admin_template/header.html' %}
+{% include 'admin_template/sidebar.html' %}
+
+
+<div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="card border shadow">
+          <div class="card-header d-flex justify-content-between">
+            <div class="pagetitle d-flex justify-content-between">
+              <nav>
+                <ol class="breadcrumb">
+                  {% if  user.is_superuser %}
+                  <li class="breadcrumb-item"><a href="{% url 'hotels:all' %}">All Hotel</a></li>
+                  {% endif %}
+                  <li class="breadcrumb-item"><a href = "{% url 'hotels:details' Hotel.id %}">{{ Hotel.name }}</a></li>
+                  <li class="breadcrumb-item active">rooms</li>.
+                </ol>
+              </nav>  
+            </div>          
+            <a href="{% url 'rooms:add_rooms' Hotel.id %}">
+              <button type="submit" class="btn btn-primary">Add New Rooms</button>
+            </a> 
+          </div>
+          </div>
+
+          <div> 
+            <ul class="nav nav-pills">
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'hotels:details' Hotel.pk %}">Hotel Details</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active">rooms</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'booking:listofbooking' user.id %}">booking</a>
+              </li>
+            </ul>
+          </div>
+
+
+          <div class="card-body border shadow">
+            <table class="table" id="Roomtable">
+              <thead class="thead-dark">
+                <tr>
+                  {% comment %} <th scope="col">id</th> {% endcomment %}
+                  <th scope="col">RoomNumber</th>
+
+                  <th scope="col">price</th>
+
+                  <th>Action</th>
+
+                </tr>
+              </thead>
+              <tbody>
+              </tbody>
+              {% comment %} <tbody>
+                
+                {% for row in rooms %}
+                
+                {% if  user.is_superuser  or user.user_type == 2  %}
+                
+                
+                <tr>
+                  <th scope="row">{{ row.id }}</th>
+                  <td><a href="{% url 'rooms:details_rooms' row.pk %}">{{row.number|capfirst}}</a></td>
+
+
+                  {% if  user.is_superuser %} 
+                  <td><a href="{% url 'hotels:details' row.hotel.pk %}">{{row.hotel|capfirst}}</a></td>
+                  {% endif %}
+                
+                
+                  <td><a href="{% url 'rooms:room_type_detail' row.type.pk %}">{{row.type|capfirst}}</a></td>
+                  {% endif %} 
+                
+                  {% if  user.is_superuser  or user.user_type == 2  %} 
+                  <td>
+                    <a href="{% url 'rooms:update_rooms' row.pk %}" class="edit" data-toggle="modal"><i
+                            class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                    <a href="{% url 'rooms:delete_rooms' row.pk %}" class="delete" data-toggle="modal"><i
+                            class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                </td>
+                {% endif %} 
+                </tr>
+                {% empty %}
+                <tr>
+                  <td colspan="5">No room found.</td>
+                </tr>
+                
+                {% endfor %}
+              </tbody> {% endcomment %}
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+<script>
+  var hotel_id = "{{Hotel.id}}";
+  var room_list_url = "{% url "rooms:jesondata_room" 0 %}".replace('0', hotel_id);
+
+  $(document).ready(function () 
+  {
+    $('#Roomtable').DataTable({
+      columnDefs: [{
+        orderable: true,
+        targets: -1
+    }, ],
+
+    processing: true,
+    serverSide: true,
+    searching: true,
+
+      ajax: {
+          url: room_list_url,
+          type: 'get',
+        },
+        
+        columns: [
+          //{ data: 'id', name: 'id' },
+          { data: 'number', name: 'number' },
+          { data: 'price', name: 'price' },
+          { data: 'actions', name: 'actions' },
+      ]
+
+  });
+  });
+
+</script>
+{% endblock %}

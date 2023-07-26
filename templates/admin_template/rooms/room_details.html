@@ -1,0 +1,29 @@
+{% extends "admin_template/admin_index.html" %}
+{% load static %}
+{% block content %}
+{% include 'admin_template/header.html' %}
+{% include 'admin_template/sidebar.html' %}
+
+
+<div class="pagetitle">
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item "><a href="{% url 'rooms:admin_rooms'  Hotel.id %}">All Rooms</a></li>
+        <li class="breadcrumb-item active">{{ rooms.number }}</li>
+      </ol>
+    </nav>
+  </div>
+    <hr>
+        <div id="tabs-1">
+            <div class="mb-3">
+                <h2 style="color: darkblue;">{{ rooms.number }}</h2>
+            <br/>
+            <p><b>Hotel Name :</b> {{ rooms.hotel }}</p>
+            <p><b>RoomType :</b> {{ rooms.type }}</p>
+            <p><b>Price:</b> {{ rooms.price}}</p>
+            <p><b>About Us:</b> {{ rooms.description }}</p>
+            </div>
+                
+        </div>
+
+{% endblock %}

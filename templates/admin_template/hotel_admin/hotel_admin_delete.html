@@ -1,0 +1,35 @@
+{% extends "admin_template/admin_index.html" %}
+{% load static %}
+{% block content %}
+{% include 'admin_template/header.html' %}
+{% include 'admin_template/sidebar.html' %}
+
+<div class="pagetitle">
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item "><a href="{% url 'hotel_admins:hoteladmin_list' %}">All Hotel Admins</a></li>
+        {% comment %} <li class="breadcrumb-item active"><a {{ hotel_admins.username }}</li></a> {% endcomment %}
+        <li class="breadcrumb-item active">Delete</li>
+      </ol>
+    </nav>
+  </div>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">Are You Sure want to delete Hotel Admin ?</div>
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        {{form.as_p}}
+                        <button type="submit" class="btn btn-danger">DELETE</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

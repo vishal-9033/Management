@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+{%  load static %}
+{% block  content %}
+{% include 'caurosel.html' %}   
+
+{% comment %} {% if user.is_authenticated %}
+
+{% if user.is_superuser %}
+
+<script>
+    window.location.href = "{% url 'admin' %}";
+  </script>
+
+  {% elif request.user.user_type == 2 %}
+<script>
+    window.location.href = "{% url 'admin' %}";
+  </script>
+
+  {% elif user.is_active %} {% endcomment %}
+
+<div class="container-xxl testimonial my-5 py-5 bg-dark wow zoomIn" data-wow-delay="0.1s">
+    <div class="container">
+        <div class="owl-carousel testimonial-carousel py-5">
+            <div class="testimonial-item position-relative bg-white rounded overflow-hidden">
+                <p>Tempor stet labore dolor clita stet diam amet ipsum dolor duo ipsum rebum stet dolor amet diam stet. Est stet ea lorem amet est kasd kasd et erat magna eos</p>
+                <div class="d-flex align-items-center">
+                    <img class="img-fluid flex-shrink-0 rounded" src="{% static 'user_static/img/testimonial-1.jpg' %}" style="width: 45px; height: 45px;">
+                    <div class="ps-3">
+                        <h6 class="fw-bold mb-1">Client Name</h6>
+                        <small>Profession</small>
+                    </div>
+                </div>
+                <i class="fa fa-quote-right fa-3x text-primary position-absolute end-0 bottom-0 me-4 mb-n1"></i>
+            </div>
+            <div class="testimonial-item position-relative bg-white rounded overflow-hidden">
+                <p>Tempor stet labore dolor clita stet diam amet ipsum dolor duo ipsum rebum stet dolor amet diam stet. Est stet ea lorem amet est kasd kasd et erat magna eos</p>
+                <div class="d-flex align-items-center">
+                    <img class="img-fluid flex-shrink-0 rounded" src="{% static 'user_static/img/testimonial-2.jpg' %}" style="width: 45px; height: 45px;">
+                    <div class="ps-3">
+                        <h6 class="fw-bold mb-1">Client Name</h6>
+                        <small>Profession</small>
+                    </div>
+                </div>
+                <i class="fa fa-quote-right fa-3x text-primary position-absolute end-0 bottom-0 me-4 mb-n1"></i>
+            </div>
+            <div class="testimonial-item position-relative bg-white rounded overflow-hidden">
+                <p>Tempor stet labore dolor clita stet diam amet ipsum dolor duo ipsum rebum stet dolor amet diam stet. Est stet ea lorem amet est kasd kasd et erat magna eos</p>
+                <div class="d-flex align-items-center">
+                    <img class="img-fluid flex-shrink-0 rounded" src="{% static 'user_static/img/testimonial-3.jpg' %}" style="width: 45px; height: 45px;">
+                    <div class="ps-3">
+                        <h6 class="fw-bold mb-1">Client Name</h6>
+                        <small>Profession</small>
+                    </div>
+                </div>
+                <i class="fa fa-quote-right fa-3x text-primary position-absolute end-0 bottom-0 me-4 mb-n1"></i>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Testimonial End -->
+
+
+<!-- Team Start -->
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+            <h6 class="section-title text-center text-primary text-uppercase">Our Team</h6>
+            <h1 class="mb-5">Explore Our <span class="text-primary text-uppercase">Staffs</span></h1>
+        </div>
+        <div class="row g-4">
+            <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                <div class="rounded shadow overflow-hidden">
+                    <div class="position-relative">
+                        <img class="img-fluid" src="{% static 'user_static/img/team-1.jpg' %}" alt="">
+                    </div>
+                    <div class="text-center p-4 mt-3">
+                        <h5 class="fw-bold mb-0">Full Name</h5>
+                        <small>Designation</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                <div class="rounded shadow overflow-hidden">
+                    <div class="position-relative">
+                        <img class="img-fluid" src="{% static 'user_static/img/team-2.jpg' %}" alt="">
+                    </div>
+                    <div class="text-center p-4 mt-3">
+                        <h5 class="fw-bold mb-0">Full Name</h5>
+                        <small>Designation</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
+                <div class="rounded shadow overflow-hidden">
+                    <div class="position-relative">
+                        <img class="img-fluid" src="{% static 'user_static/img/team-3.jpg' %}" alt="">
+
+                    </div>
+                    <div class="text-center p-4 mt-3">
+                        <h5 class="fw-bold mb-0">Full Name</h5>
+                        <small>Designation</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
+                <div class="rounded shadow overflow-hidden">
+                    <div class="position-relative">
+                        <img class="img-fluid" src="{% static 'user_static/img/team-4.jpg' %}" alt="">
+                    </div>
+                    <div class="text-center p-4 mt-3">
+                        <h5 class="fw-bold mb-0">Full Name</h5>
+                        <small>Designation</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Team End -->
+{% comment %} {% endif %} {% endcomment %}
+{% comment %} {% endif %} {% endcomment %}
+
+
+{% endblock %}

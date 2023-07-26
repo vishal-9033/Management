@@ -1,0 +1,88 @@
+{% extends "admin_template/admin_index.html" %}
+{% load static %}
+{% block content %}
+{% include 'admin_template/header.html' %}
+{% include 'admin_template/sidebar.html' %}
+
+
+<div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="card border shadow">
+          <div class="card-header d-flex justify-content-between">
+            <h4>Customer</h4>
+          </div>
+          </div>
+          <div class="card-body border shadow">
+            <table class="table" id="Usertable">
+              <thead class="thead-dark">
+                <tr>
+                  {% comment %} <th scope="col">No.</th> {% endcomment %}
+                  <th scope="col">username</th>
+                  <th scope="col">Email</th>
+                  <th scope="col">city</th>  
+                  {% if  user.is_superuser %}                 
+                  <th>Action</th>
+                  {% endif %}
+                </tr>
+              </thead>
+              <tbody>
+              </tbody>
+              {% comment %} <tbody>
+                {% for row in users %}
+                
+                <tr>
+                  <th scope="row">{{ row.id }}</th>
+                  <td><a href="{% url 'admin_user:user_details' row.pk %}">{{row.username|capfirst}}</a></td>
+                  <td>{{row.email|capfirst}}</a></td>
+                   {% if  user.is_superuser %} 
+                  <td>
+                    <a href="{% url 'admin_user:user_delete' row.pk %}" class="delete" data-toggle="modal"><i
+                            class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                </td>
+                   {% endif %} 
+                </tr>
+                
+                {% endfor %}
+              </tbody> {% endcomment %}
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+<script>
+  $(document).ready(function () 
+  {
+    $('#Usertable').DataTable({
+      columnDefs: [{
+        orderable: true,
+        targets: -1
+    }, ],
+
+    processing: true,
+    serverSide: true,
+    searching: true,
+      ajax: {
+          url: '{% url "admin_user:jesondata_User" %}',
+          type: 'get',
+      },
+      columns: [
+          // data: json key from prepare_results, name: model field name
+          //{ data: 'id', dataType: 'id'},
+          { data: 'username', name: 'username' },
+          { data: 'email', name: 'email' },
+          {data: 'city',name:'city'},
+          { data: 'actions', name: 'actions' },
+
+      ]
+
+  });
+  });
+
+</script>
+
+
+{% endblock %}
